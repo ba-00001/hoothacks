@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'chatbot_screen.dart';
 import '../widgets/app_shell_scaffold.dart';
 import 'dashboard_screen.dart';
 import 'grant_eligibility_screen.dart';
@@ -19,6 +20,7 @@ class _HomeShellState extends State<HomeShell> {
   int _currentIndex = 0;
 
   static const _titles = [
+    'Chatbot',
     'Dashboard',
     'Recommendations',
     'Listings',
@@ -30,6 +32,7 @@ class _HomeShellState extends State<HomeShell> {
   @override
   Widget build(BuildContext context) {
     final screens = [
+      const ChatbotScreen(),
       const DashboardScreen(),
       const RecommendationsScreen(),
       const ListingsScreen(),

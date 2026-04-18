@@ -18,6 +18,7 @@ class AppShellScaffold extends StatelessWidget {
   final Widget body;
 
   static const _items = [
+    ('Chatbot', Icons.chat_bubble_rounded),
     ('Dashboard', Icons.space_dashboard_rounded),
     ('Recommendations', Icons.auto_awesome_rounded),
     ('Listings', Icons.house_rounded),
