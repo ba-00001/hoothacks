@@ -16,12 +16,10 @@ class ApiService {
 
   int? get userId => _userId;
 
-  // --- MOCK DELAY HELPER ---
   Future<void> _simulateProcessing({int seconds = 2}) async {
     await Future.delayed(Duration(seconds: seconds));
   }
 
-  // --- AUTH ---
   Future<Map<String, dynamic>> signup(String email, String password) async {
     await _simulateProcessing(seconds: 1);
     return {'token': 'mock_jwt_token', 'userId': 1, 'message': 'Signup successful'};
@@ -37,7 +35,6 @@ class ApiService {
     return {'token': 'mock_jwt_token', 'userId': 1, 'message': 'Google auth successful'};
   }
 
-  // --- PROFILE ---
   Future<Map<String, dynamic>> getProfile(int userId) async {
     await _simulateProcessing(seconds: 1);
     return {
@@ -56,7 +53,6 @@ class ApiService {
     return {'message': 'Profile updated'};
   }
 
-  // --- LISTINGS ---
   Future<List<dynamic>> getListings({String? type, String? location, double? maxPrice}) async {
     await _simulateProcessing(seconds: 1);
     return [
@@ -78,7 +74,6 @@ class ApiService {
   
   Future<void> removeFavorite(int userId, int listingId) async { await _simulateProcessing(seconds: 1); }
 
-  // --- DASHBOARD AI ENDPOINTS ---
   Future<Map<String, dynamic>> getAffordability(int userId) async {
     await _simulateProcessing(seconds: 1);
     return {
@@ -137,10 +132,8 @@ class ApiService {
     };
   }
 
-  // --- INTELLIGENT CHATBOT MOCK (NO HTTP CALLS) ---
   Future<String> chat(String message, int userId, {String? sessionId}) async {
-    await _simulateProcessing(seconds: 2); // Realistic 2-second typing delay
-    
+    await _simulateProcessing(seconds: 2);
     final lowerMsg = message.toLowerCase();
     
     if (lowerMsg.contains("afford") || lowerMsg.contains("budget") || lowerMsg.contains("what can i")) {
@@ -156,9 +149,7 @@ class ApiService {
 • Max Rent (30% Rule): \$1,875 / month
 
 Would you like me to pull up some listings in your area?''';
-    } 
-    
-    else if (lowerMsg.contains("grant") || lowerMsg.contains("qualify")) {
+    } else if (lowerMsg.contains("grant") || lowerMsg.contains("qualify")) {
       return '''🎉 Great news! Based on your profile, you qualify for up to **\$25,000** in housing assistance:
 
 💸 **Florida First-Time Homebuyer Program**
@@ -171,9 +162,7 @@ Would you like me to pull up some listings in your area?''';
 • Match Score: 88%
 
 Should I apply these to a mortgage estimate for you?''';
-    } 
-    
-    else if (lowerMsg.contains("300k") || lowerMsg.contains("house")) {
+    } else if (lowerMsg.contains("300k") || lowerMsg.contains("house")) {
       return '''Let's run the numbers on a \$300k home! 🧮
 
 A \$300,000 purchase is slightly above your recommended baseline, but highly achievable if you minimize other debts.
@@ -184,9 +173,7 @@ A \$300,000 purchase is slightly above your recommended baseline, but highly ach
 • Target Income Required: ~\$75,000 / year
 
 💡 *Pro Tip:* If we apply your \$15k grant eligibility, your out-of-pocket down payment drops to just \$15,000! Shall we browse some \$300k listings?''';
-    } 
-    
-    else if (lowerMsg.contains("rent") || lowerMsg.contains("1500")) {
+    } else if (lowerMsg.contains("rent") || lowerMsg.contains("1500")) {
       return '''I've found some excellent rental matches under \$1,500! 🏘️
 
 Here are the top picks for you:
@@ -202,9 +189,7 @@ Here are the top picks for you:
 • *Great for maximizing your savings.*
 
 Head over to the Listings tab to view photos and save your favorites!''';
-    } 
-    
-    else {
+    } else {
       return '''Hello! 👋 I am HomePilot AI, your personal real estate advisor.
 
 I can analyze your financial profile to help you find the best housing options. Try asking me:

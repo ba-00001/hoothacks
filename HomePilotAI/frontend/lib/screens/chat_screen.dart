@@ -60,6 +60,7 @@ class _ChatScreenState extends State<ChatScreen> {
     final cs = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         title: Row(children: [
           Container(
             width: 32, height: 32,
@@ -74,7 +75,6 @@ class _ChatScreenState extends State<ChatScreen> {
         ]),
       ),
       body: Column(children: [
-        // Suggestion chips
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -86,7 +86,6 @@ class _ChatScreenState extends State<ChatScreen> {
           ]),
         ),
         const Divider(height: 1),
-        // Messages
         Expanded(
           child: ListView.builder(
             controller: _scrollController,
@@ -100,12 +99,8 @@ class _ChatScreenState extends State<ChatScreen> {
             },
           ),
         ),
-        // Input
         Container(
-          decoration: BoxDecoration(
-            color: cs.surface,
-            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, -2))],
-          ),
+          color: Colors.white,
           padding: EdgeInsets.only(left: 16, right: 8, top: 8, bottom: MediaQuery.of(context).padding.bottom + 8),
           child: Row(children: [
             Expanded(
@@ -115,7 +110,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   hintText: 'Ask about housing, budgets, grants...',
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(24), borderSide: BorderSide.none),
                   filled: true,
-                  fillColor: cs.surfaceContainerHighest.withOpacity(0.5),
+                  fillColor: cs.surface,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 ),
                 onSubmitted: (_) => _send(),
@@ -156,12 +151,12 @@ class _ChatScreenState extends State<ChatScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.78),
         decoration: BoxDecoration(
-          color: msg.isUser ? cs.primary : cs.surfaceContainerHighest,
+          color: msg.isUser ? cs.primary : Colors.white,
           borderRadius: BorderRadius.only(
-            topLeft: const Radius.circular(18),
-            topRight: const Radius.circular(18),
-            bottomLeft: Radius.circular(msg.isUser ? 18 : 4),
-            bottomRight: Radius.circular(msg.isUser ? 4 : 18),
+            topLeft: const Radius.circular(20),
+            topRight: const Radius.circular(20),
+            bottomLeft: Radius.circular(msg.isUser ? 20 : 4),
+            bottomRight: Radius.circular(msg.isUser ? 4 : 20),
           ),
         ),
         child: Text(msg.text, style: TextStyle(
@@ -178,7 +173,7 @@ class _ChatScreenState extends State<ChatScreen> {
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-        decoration: BoxDecoration(color: cs.surfaceContainerHighest, borderRadius: BorderRadius.circular(18)),
+        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(18)),
         child: Row(mainAxisSize: MainAxisSize.min, children: [
           _dot(0), const SizedBox(width: 4), _dot(1), const SizedBox(width: 4), _dot(2),
         ]),

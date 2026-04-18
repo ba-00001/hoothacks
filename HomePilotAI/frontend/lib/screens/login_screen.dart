@@ -44,16 +44,12 @@ class _LoginScreenState extends State<LoginScreen> {
         if (mounted) setState(() => _loading = false);
         return;
       }
-
       final auth = await account.authentication;
-
-      // Flutter web gives accessToken, not idToken
       final token = auth.idToken ?? auth.accessToken;
       if (token == null) {
         if (mounted) setState(() { _error = 'Could not get Google token'; _loading = false; });
         return;
       }
-
       final res = await api.googleAuth(token);
       if (res['token'] != null) {
         await _saveAndNavigate(res['token'], res['userId']);
@@ -61,12 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if (mounted) setState(() => _error = res['error'] ?? 'Google login failed');
       }
     } catch (e) {
-      final msg = e.toString();
-      if (msg.contains('popup_closed') || msg.contains('user_cancel')) {
-        debugPrint('Google sign-in cancelled');
-      } else {
-        if (mounted) setState(() => _error = 'Google sign-in error: $msg');
-      }
+      if (mounted) setState(() => _error = 'Google sign-in error');
     } finally {
       if (mounted) setState(() => _loading = false);
     }
@@ -89,38 +80,63 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 60),
-              Icon(Icons.home_work_rounded, size: 80, color: Theme.of(context).colorScheme.primary),
-              const SizedBox(height: 16),
-              Text('HomePilot AI', textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
-              Text('Find your perfect home', textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey)),
-              const SizedBox(height: 48),
-              TextField(controller: _emailC, decoration: const InputDecoration(labelText: 'Email', border: OutlineInputBorder(), prefixIcon: Icon(Icons.email)), keyboardType: TextInputType.emailAddress),
-              const SizedBox(height: 16),
-              TextField(controller: _passC, decoration: const InputDecoration(labelText: 'Password', border: OutlineInputBorder(), prefixIcon: Icon(Icons.lock)), obscureText: true),
-              if (_error != null) ...[const SizedBox(height: 12), Text(_error!, style: const TextStyle(color: Colors.red), textAlign: TextAlign.center)],
-              const SizedBox(height: 24),
-              FilledButton(onPressed: _loading ? null : _login, style: FilledButton.styleFrom(padding: const EdgeInsets.all(16)),
-                child: _loading ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white)) : const Text('Log In', style: TextStyle(fontSize: 16))),
-              const SizedBox(height: 20),
-              Row(children: [const Expanded(child: Divider()), Padding(padding: const EdgeInsets.symmetric(horizontal: 16), child: Text('or', style: TextStyle(color: Colors.grey.shade600))), const Expanded(child: Divider())]),
-              const SizedBox(height: 20),
-              OutlinedButton.icon(onPressed: _loading ? null : _googleLogin,
-                style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(14), side: BorderSide(color: Colors.grey.shade300), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-                icon: Image.network('https://developers.google.com/identity/images/g-logo.png', height: 22, width: 22, errorBuilder: (_, __, ___) => const Icon(Icons.g_mobiledata, size: 24)),
-                label: const Text('Continue with Google', style: TextStyle(fontSize: 16, color: Colors.black87))),
-              const SizedBox(height: 24),
-              TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SignupScreen())), child: const Text("Don't have an account? Sign up")),
-            ],
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFF6E5C6), Color(0xFFE1EFE9)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 460),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('HomePilot AI', style: Theme.of(context).textTheme.headlineLarge),
+                      const SizedBox(height: 8),
+                      const Text('Find the most affordable housing options for your budget, location, and eligibility profile.'),
+                      const SizedBox(height: 24),
+                      TextField(controller: _emailC, decoration: const InputDecoration(labelText: 'Email')),
+                      const SizedBox(height: 16),
+                      TextField(controller: _passC, decoration: const InputDecoration(labelText: 'Password'), obscureText: true),
+                      if (_error != null) ...[const SizedBox(height: 12), Text(_error!, style: const TextStyle(color: Colors.red))],
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        width: double.infinity,
+                        child: FilledButton(
+                          onPressed: _loading ? null : _login,
+                          child: Text(_loading ? 'Signing in...' : 'Login', style: const TextStyle(fontSize: 16)),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Row(children: [const Expanded(child: Divider()), Padding(padding: const EdgeInsets.symmetric(horizontal: 16), child: Text('or', style: TextStyle(color: Colors.grey.shade600))), const Expanded(child: Divider())]),
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton.icon(
+                          onPressed: _loading ? null : _googleLogin,
+                          style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(14), side: BorderSide(color: Colors.grey.shade300), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                          icon: Image.network('https://developers.google.com/identity/images/g-logo.png', height: 22, width: 22, errorBuilder: (_, __, ___) => const Icon(Icons.g_mobiledata, size: 24)),
+                          label: const Text('Continue with Google', style: TextStyle(fontSize: 16, color: Colors.black87)),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      TextButton(
+                        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SignupScreen())),
+                        child: const Text('Create a new account'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ),

@@ -48,27 +48,39 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Create Account')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextField(controller: _emailC, decoration: const InputDecoration(labelText: 'Email', border: OutlineInputBorder())),
-            const SizedBox(height: 16),
-            TextField(controller: _passC, decoration: const InputDecoration(labelText: 'Password', border: OutlineInputBorder()), obscureText: true),
-            const SizedBox(height: 16),
-            TextField(controller: _confirmC, decoration: const InputDecoration(labelText: 'Confirm Password', border: OutlineInputBorder()), obscureText: true),
-            if (_error != null) ...[const SizedBox(height: 12), Text(_error!, style: const TextStyle(color: Colors.red))],
-            const SizedBox(height: 24),
-            FilledButton(
-              onPressed: _loading ? null : _signup,
-              style: FilledButton.styleFrom(padding: const EdgeInsets.all(16)),
-              child: _loading
-                  ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                  : const Text('Sign Up', style: TextStyle(fontSize: 16)),
+      appBar: AppBar(backgroundColor: Colors.transparent),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 460),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Create your account', style: Theme.of(context).textTheme.headlineSmall),
+                    const SizedBox(height: 24),
+                    TextField(controller: _emailC, decoration: const InputDecoration(labelText: 'Email')),
+                    const SizedBox(height: 16),
+                    TextField(controller: _passC, decoration: const InputDecoration(labelText: 'Password'), obscureText: true),
+                    const SizedBox(height: 16),
+                    TextField(controller: _confirmC, decoration: const InputDecoration(labelText: 'Confirm Password'), obscureText: true),
+                    if (_error != null) ...[const SizedBox(height: 12), Text(_error!, style: const TextStyle(color: Colors.red))],
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      child: FilledButton(
+                        onPressed: _loading ? null : _signup,
+                        child: Text(_loading ? 'Creating...' : 'Sign up', style: const TextStyle(fontSize: 16)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ],
+          ),
         ),
       ),
     );

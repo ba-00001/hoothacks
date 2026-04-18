@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'services/api_service.dart';
 import 'screens/login_screen.dart';
@@ -15,32 +16,53 @@ class HomePilotApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: const Color(0xFF18605D),
+      primary: const Color(0xFF18605D),
+      secondary: const Color(0xFFE59B32),
+      surface: const Color(0xFFF7F2EA),
+      brightness: Brightness.light,
+    );
+
     return MaterialApp(
       title: 'HomePilot AI',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF2E7D32),
-          brightness: Brightness.light,
-          primary: const Color(0xFF2E7D32),
-          onPrimary: Colors.white,
-          surface: const Color(0xFFF8FAF8),
+        colorScheme: colorScheme,
+        scaffoldBackgroundColor: const Color(0xFFF4EFE7),
+        textTheme: GoogleFonts.spaceGroteskTextTheme().copyWith(
+          headlineLarge: GoogleFonts.sourceSerif4(
+            fontSize: 34,
+            fontWeight: FontWeight.w700,
+            color: const Color(0xFF1F2A2C),
+          ),
+          headlineSmall: GoogleFonts.sourceSerif4(
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+            color: const Color(0xFF1F2A2C),
+          ),
         ),
-        useMaterial3: true,
-        scaffoldBackgroundColor: const Color(0xFFF5F7F5),
-        appBarTheme: const AppBarTheme(
-          centerTitle: false,
-          elevation: 0,
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: BorderSide.none,
+          ),
         ),
         cardTheme: CardThemeData(
+          color: Colors.white,
           elevation: 0,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(22),
+          ),
         ),
         filledButtonTheme: FilledButtonThemeData(
           style: FilledButton.styleFrom(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
+        useMaterial3: true,
       ),
       home: const AuthGate(),
     );

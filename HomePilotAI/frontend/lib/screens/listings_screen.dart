@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
+import '../widgets/listing_card.dart';
 
 class ListingsScreen extends StatefulWidget {
   const ListingsScreen({super.key});
@@ -34,7 +35,7 @@ class _ListingsScreenState extends State<ListingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Listings')),
+      appBar: AppBar(title: const Text('Listings'), backgroundColor: Colors.transparent),
       body: Column(children: [
         Padding(
           padding: const EdgeInsets.all(12),
@@ -52,26 +53,19 @@ class _ListingsScreenState extends State<ListingsScreen> {
           child: _loading
               ? const Center(child: CircularProgressIndicator())
               : _listings.isEmpty
-                  ? const Center(child: Text('No listings found. Seed the database first!'))
+                  ? const Center(child: Text('No listings found.'))
                   : ListView.builder(
+                      padding: const EdgeInsets.all(16),
                       itemCount: _listings.length,
                       itemBuilder: (ctx, i) {
                         final l = _listings[i];
                         final isRent = l['rentOrBuy'] == 'rent';
-                        return Card(
-                          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                          child: ListTile(
-                            leading: Icon(isRent ? Icons.apartment : Icons.house, size: 36,
-                                color: isRent ? Colors.blue : Colors.green),
-                            title: Text(l['title'], style: const TextStyle(fontWeight: FontWeight.bold)),
-                            subtitle: Text('${l['location']} • ${l['bedrooms']}bd/${l['bathrooms']}ba\n'
-                                '${isRent ? "\$${l['price']}/mo" : "\$${l['price']}"}'),
-                            isThreeLine: true,
-                            trailing: IconButton(
-                              icon: const Icon(Icons.favorite_border),
-                              onPressed: () => _save(l['id']),
-                            ),
-                          ),
+                        return ListingCard(
+                          title: l['title'],
+                          location: l['location'],
+                          priceLabel: isRent ? "\$${l['price']}/mo" : "\$${l['price']}",
+                          details: '${l['bedrooms']}bd / ${l['bathrooms']}ba',
+                          onSave: () => _save(l['id']),
                         );
                       },
                     ),

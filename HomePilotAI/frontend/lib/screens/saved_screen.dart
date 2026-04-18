@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
+import '../widgets/listing_card.dart';
 
 class SavedScreen extends StatefulWidget {
   const SavedScreen({super.key});
@@ -26,29 +27,27 @@ class _SavedScreenState extends State<SavedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Saved Properties')),
+      appBar: AppBar(title: const Text('Saved Properties'), backgroundColor: Colors.transparent),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _saved.isEmpty
               ? const Center(child: Text('No saved properties yet'))
               : ListView.builder(
+                  padding: const EdgeInsets.all(16),
                   itemCount: _saved.length,
                   itemBuilder: (ctx, i) {
                     final l = _saved[i]['listing'];
-                    return Card(
-                      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                      child: ListTile(
-                        title: Text(l['title']),
-                        subtitle: Text('${l['location']} • \$${l['price']}'),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.red),
-                          onPressed: () async {
-                            final prefs = await SharedPreferences.getInstance();
-                            await api.removeFavorite(prefs.getInt('userId')!, l['id']);
-                            _load();
-                          },
-                        ),
-                      ),
+                    return ListingCard(
+                      title: l['title'],
+                      location: l['location'],
+                      priceLabel: '\$${l['price']}',
+                      details: '${l['bedrooms']}bd / ${l['bathrooms']}ba',
+                      summary: 'Remove from favorites?',
+                      onSave: () async {
+                        final prefs = await SharedPreferences.getInstance();
+                        await api.removeFavorite(prefs.getInt('userId')!, l['id']);
+                        _load();
+                      }
                     );
                   },
                 ),

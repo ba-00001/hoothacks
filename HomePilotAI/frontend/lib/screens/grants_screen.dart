@@ -26,31 +26,37 @@ class _GrantsScreenState extends State<GrantsScreen> {
   Widget build(BuildContext context) {
     final grants = _data?['matchedGrants'] as List? ?? [];
     return Scaffold(
-      appBar: AppBar(title: const Text('Grant Eligibility')),
+      appBar: AppBar(title: const Text('Grant Eligibility'), backgroundColor: Colors.transparent),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
-          : ListView(padding: const EdgeInsets.all(16), children: [
-              Card(
-                color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text('Total Potential Aid: \$${_data?['totalPotentialAid'] ?? 0}',
-                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                ),
+          : ListView(padding: const EdgeInsets.all(20), children: [
+              Text(
+                'Total Potential Aid: \$${_data?['totalPotentialAid'] ?? 0}',
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 16),
               ...grants.map((g) => Card(
-                margin: const EdgeInsets.only(bottom: 8),
-                child: ListTile(
-                  leading: const Icon(Icons.card_giftcard, color: Colors.green),
-                  title: Text(g['programName'], style: const TextStyle(fontWeight: FontWeight.bold)),
-                  subtitle: Text('Coverage: \$${g['coverageAmount']}\n${g['eligibility']}'),
-                  isThreeLine: true,
-                  trailing: Text('${(g['matchScore'] * 100).round()}%', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                margin: const EdgeInsets.only(bottom: 12),
+                child: Padding(
+                  padding: const EdgeInsets.all(18),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(g['programName'], style: Theme.of(context).textTheme.titleLarge),
+                      const SizedBox(height: 10),
+                      Text(g['eligibility']),
+                      const SizedBox(height: 12),
+                      Wrap(
+                        spacing: 10,
+                        children: [
+                          Chip(label: Text('\$${g['coverageAmount']} coverage')),
+                          Chip(label: Text('${(g['matchScore'] * 100).round()}% match')),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               )),
-              const SizedBox(height: 12),
-              Text('Source: ${_data?['source'] ?? ''}', style: const TextStyle(color: Colors.grey, fontSize: 12)),
             ]),
     );
   }
