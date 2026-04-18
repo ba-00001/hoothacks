@@ -1,9 +1,9 @@
 from google.adk.agents.llm_agent import Agent
 from google.adk.tools.agent_tool import AgentTool
-from HomePilotAI.homepilot_agent.sub_agents.affordability.agent import affordability_agent
-from HomePilotAI.homepilot_agent.sub_agents.grant_matching.agent import grant_agent
-from HomePilotAI.homepilot_agent.sub_agents.mortgage_estimator.agent import mortgage_agent
-from HomePilotAI.homepilot_agent.sub_agents.property_recommendation.agent import property_agent 
+from sub_agents.affordability.agent import affordability_agent
+from sub_agents.grant_matching.agent import grant_agent
+from sub_agents.mortgage_estimator.agent import mortgage_agent
+from sub_agents.property_recommendation.agent import property_agent 
 
 homepilot_orchestrator = Agent(
     name="homepilot_orchestrator",

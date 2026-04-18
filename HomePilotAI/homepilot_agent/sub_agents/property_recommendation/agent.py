@@ -1,8 +1,8 @@
 from google.adk.agents import Agent
 import os
 import requests
-from HomePilotAI.homepilot_agent.sub_agents.property_recommendation.tools.google_maps import calculate_commute_time
-from HomePilotAI.homepilot_agent.sub_agents.property_recommendation.tools.zillow import fetch_purchase_listings
+from sub_agents.property_recommendation.tools.google_maps import calculate_commute_time
+from sub_agents.property_recommendation.tools.zillow import fetch_purchase_listings
 
 def check_property_grant_eligibility(property_address: str) -> dict:
     """
