@@ -7,6 +7,9 @@ class ListingModel {
     required this.bedrooms,
     required this.bathrooms,
     required this.rentOrBuy,
+    this.description,
+    this.imageUrl,
+    this.landlordId,
   });
 
   final int id;
@@ -16,6 +19,9 @@ class ListingModel {
   final int bedrooms;
   final int bathrooms;
   final String rentOrBuy;
+  final String? description;
+  final String? imageUrl;
+  final int? landlordId;
 
   String get formattedPrice => rentOrBuy == 'RENT'
       ? '\$${price.toStringAsFixed(0)}/mo'
@@ -30,6 +36,9 @@ class ListingModel {
       bedrooms: json['bedrooms'] as int,
       bathrooms: json['bathrooms'] as int,
       rentOrBuy: json['rentOrBuy'] as String,
+      description: json['description'] as String?,
+      imageUrl: json['imageUrl'] as String?,
+      landlordId: json['landlordId'] as int?,
     );
   }
 }

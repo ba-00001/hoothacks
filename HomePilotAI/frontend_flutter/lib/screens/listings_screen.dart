@@ -118,6 +118,8 @@ class _ListingsScreenState extends State<ListingsScreen> {
                     location: item.location,
                     priceLabel: item.formattedPrice,
                     details: '${item.bedrooms} bd • ${item.bathrooms} ba',
+                    description: item.description,
+                    imageUrl: item.imageUrl,
                     onSave: () => _saveFavorite(item.id),
                   );
                 },

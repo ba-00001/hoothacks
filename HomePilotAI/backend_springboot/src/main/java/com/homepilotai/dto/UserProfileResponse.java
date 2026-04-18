@@ -2,6 +2,8 @@ package com.homepilotai.dto;
 
 import com.homepilotai.models.AppUser;
 import com.homepilotai.models.RentOrBuyPreference;
+import com.homepilotai.models.UserRole;
+import com.homepilotai.models.SubscriptionTier;
 
 public record UserProfileResponse(
         Long id,
@@ -11,7 +13,11 @@ public record UserProfileResponse(
         Integer householdSize,
         Integer creditEstimate,
         String preferredLocation,
-        RentOrBuyPreference rentOrBuy
+        RentOrBuyPreference rentOrBuy,
+        UserRole role,
+        String businessName,
+        String phoneNumber,
+        SubscriptionTier subscriptionTier
 ) {
 
     public static UserProfileResponse from(AppUser user) {
@@ -23,7 +29,11 @@ public record UserProfileResponse(
                 user.getHouseholdSize(),
                 user.getCreditEstimate(),
                 user.getPreferredLocation(),
-                user.getRentOrBuy()
+                user.getRentOrBuy(),
+                user.getRole(),
+                user.getBusinessName(),
+                user.getPhoneNumber(),
+                user.getSubscriptionTier()
         );
     }
 }

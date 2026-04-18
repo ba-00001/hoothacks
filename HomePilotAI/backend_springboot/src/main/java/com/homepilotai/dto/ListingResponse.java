@@ -11,7 +11,10 @@ public record ListingResponse(
         String location,
         Integer bedrooms,
         Integer bathrooms,
-        RentOrBuyPreference rentOrBuy
+        RentOrBuyPreference rentOrBuy,
+        String description,
+        String imageUrl,
+        Long landlordId
 ) {
 
     public static ListingResponse from(Listing listing) {
@@ -22,7 +25,10 @@ public record ListingResponse(
                 listing.getLocation(),
                 listing.getBedrooms(),
                 listing.getBathrooms(),
-                listing.getRentOrBuy()
+                listing.getRentOrBuy(),
+                listing.getDescription(),
+                listing.getImageUrl(),
+                listing.getLandlordId()
         );
     }
 }

@@ -1,6 +1,7 @@
 package com.homepilotai.services;
 
 import com.homepilotai.dto.AuthResponse;
+import com.homepilotai.dto.LandlordSignupRequest;
 import com.homepilotai.dto.LoginRequest;
 import com.homepilotai.dto.SignupRequest;
 import com.homepilotai.dto.UserProfileResponse;
@@ -67,6 +68,22 @@ public class AuthService {
                         .build())
         );
 
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(user.getEmail());
+        return new AuthResponse(jwtService.generateToken(userDetails), UserProfileResponse.from(user));
+    }
+
+    public AuthResponse landlordSignup(LandlordSignupRequest request) {
+        if (appUserRepository.existsByEmail(request.email())) {
+            throw new IllegalArgumentException("An account with that email already exists");
+        }
+        AppUser user = appUserRepository.save(AppUser.builder()
+                .email(request.email().toLowerCase().trim())
+                .password(passwordEncoder.encode(request.password()))
+                .role(request.role())
+                .businessName(request.businessName())
+                .phoneNumber(request.phoneNumber())
+                .subscriptionTier(request.subscriptionTier())
+                .build());
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(user.getEmail());
         return new AuthResponse(jwtService.generateToken(userDetails), UserProfileResponse.from(user));
     }

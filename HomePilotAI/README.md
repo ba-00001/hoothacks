@@ -479,6 +479,44 @@ flutter run --dart-define=API_BASE_URL=http://localhost:8080
 - Flutter: `flutter analyze`
 - Flutter tests: `flutter test`
 
+## Revenue Model
+
+HomePilot AI monetizes through a B2B2C model: landlords and real estate agents pay to list properties directly to pre-qualified buyers and renters surfaced by the AI.
+
+### Landlord & Agent Subscription Tiers
+
+| Tier | Price | Listings | Extras |
+|------|-------|----------|--------|
+| Free Trial | $0 | 1 active listing · 30 days | — |
+| Basic | $29 / month | Up to 5 listings | Standard placement |
+| Premium | $79 / month | Unlimited listings | Featured placement, priority ranking in recommendations |
+
+### How it works
+
+1. A landlord or agent taps **"List your property"** on the login screen and creates an account, choosing their subscription tier.
+2. After signup they get a JWT and can call the **landlord API** (`POST /landlord/listings`, `PUT`, `DELETE`) to manage their listings.
+3. Their listings appear in the main search results alongside platform-seeded inventory and are ranked by the AI recommendation engine.
+4. Tenants and buyers see property photos, descriptions, and budget-fit scores — landlords get direct exposure to the most financially qualified users for their listing.
+
+### Demo landlord account
+
+| Field | Value |
+|-------|-------|
+| Email | `landlord@homepilot.ai` |
+| Password | `Landlord123!` |
+| Business | Peach State Properties |
+| Tier | Basic |
+
+### Landlord API endpoints
+
+- `POST /auth/signup/landlord` — create landlord or agent account
+- `GET /landlord/listings` — fetch the authenticated landlord's listings
+- `POST /landlord/listings` — create a new listing
+- `PUT /landlord/listings/{id}` — update a listing
+- `DELETE /landlord/listings/{id}` — remove a listing
+
+---
+
 ## Future Upgrade Paths
 
 The backend service layer is separated so future integrations can slot in without major restructuring:

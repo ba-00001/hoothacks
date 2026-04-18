@@ -2,6 +2,7 @@ package com.homepilotai.controllers;
 
 import com.homepilotai.dto.AuthResponse;
 import com.homepilotai.dto.GoogleAuthRequest;
+import com.homepilotai.dto.LandlordSignupRequest;
 import com.homepilotai.dto.LoginRequest;
 import com.homepilotai.dto.SignupRequest;
 import com.homepilotai.services.AuthService;
@@ -35,5 +36,11 @@ public class AuthController {
     @PostMapping("/google")
     public AuthResponse googleLogin(@Valid @RequestBody GoogleAuthRequest request) {
         return authService.googleLogin(request.idToken());
+    }
+
+    @PostMapping("/signup/landlord")
+    @ResponseStatus(HttpStatus.CREATED)
+    public AuthResponse landlordSignup(@Valid @RequestBody LandlordSignupRequest request) {
+        return authService.landlordSignup(request);
     }
 }

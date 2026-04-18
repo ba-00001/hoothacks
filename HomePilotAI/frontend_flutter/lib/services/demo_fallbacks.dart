@@ -136,6 +136,8 @@ class DemoFallbacks {
     );
   }
 
+  static const _img = 'https://picsum.photos/seed';
+
   static List<ListingModel> listings() {
     return const [
       ListingModel(
@@ -146,6 +148,8 @@ class DemoFallbacks {
         bedrooms: 1,
         bathrooms: 1,
         rentOrBuy: 'RENT',
+        description: 'Bright studio loft in walkable West End with exposed brick and updated kitchen.',
+        imageUrl: '$_img/west-end-studio/600/400',
       ),
       ListingModel(
         id: 2,
@@ -155,6 +159,8 @@ class DemoFallbacks {
         bedrooms: 3,
         bathrooms: 2,
         rentOrBuy: 'RENT',
+        description: 'Spacious 3-bedroom near Piedmont Park, minutes from Beltline trail access.',
+        imageUrl: '$_img/midtown-family/600/400',
       ),
       ListingModel(
         id: 3,
@@ -164,6 +170,8 @@ class DemoFallbacks {
         bedrooms: 2,
         bathrooms: 1,
         rentOrBuy: 'RENT',
+        description: 'Modern 2-bed in South End corridor, close to light rail and dining.',
+        imageUrl: '$_img/charlotte-apt/600/400',
       ),
       ListingModel(
         id: 4,
@@ -173,6 +181,8 @@ class DemoFallbacks {
         bedrooms: 1,
         bathrooms: 1,
         rentOrBuy: 'RENT',
+        description: 'Affordable 1-bed near Vanderbilt and Belmont, utilities included.',
+        imageUrl: '$_img/nashville-student/600/400',
       ),
       ListingModel(
         id: 5,
@@ -182,6 +192,8 @@ class DemoFallbacks {
         bedrooms: 2,
         bathrooms: 2,
         rentOrBuy: 'RENT',
+        description: 'Private duplex unit with fenced yard and covered parking, no HOA.',
+        imageUrl: '$_img/orlando-duplex/600/400',
       ),
       ListingModel(
         id: 6,
@@ -191,6 +203,8 @@ class DemoFallbacks {
         bedrooms: 3,
         bathrooms: 2,
         rentOrBuy: 'BUY',
+        description: 'Move-in ready craftsman with original hardwoods, updated HVAC, and large back porch.',
+        imageUrl: '$_img/savannah-home/600/400',
       ),
       ListingModel(
         id: 7,
@@ -200,6 +214,8 @@ class DemoFallbacks {
         bedrooms: 3,
         bathrooms: 3,
         rentOrBuy: 'BUY',
+        description: 'End-unit townhome in North Raleigh, attached garage and community pool.',
+        imageUrl: '$_img/raleigh-townhome/600/400',
       ),
       ListingModel(
         id: 8,
@@ -209,6 +225,8 @@ class DemoFallbacks {
         bedrooms: 2,
         bathrooms: 1,
         rentOrBuy: 'BUY',
+        description: 'Charming bungalow on a quiet street, updated kitchen and new roof.',
+        imageUrl: '$_img/columbus-cottage/600/400',
       ),
       ListingModel(
         id: 9,
@@ -218,6 +236,8 @@ class DemoFallbacks {
         bedrooms: 3,
         bathrooms: 2,
         rentOrBuy: 'BUY',
+        description: 'FHA-eligible single-family home in Mandarin, large lot and screened lanai.',
+        imageUrl: '$_img/jacksonville-fha/600/400',
       ),
       ListingModel(
         id: 10,
@@ -227,6 +247,8 @@ class DemoFallbacks {
         bedrooms: 3,
         bathrooms: 1,
         rentOrBuy: 'BUY',
+        description: 'Solid brick colonial in Rosedale Park, fully remodeled interior with equity upside.',
+        imageUrl: '$_img/detroit-equity/600/400',
       ),
     ];
   }

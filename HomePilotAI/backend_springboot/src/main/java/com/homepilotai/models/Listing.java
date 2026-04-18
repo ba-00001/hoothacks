@@ -1,5 +1,6 @@
 package com.homepilotai.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -33,4 +34,12 @@ public class Listing {
 
     @Enumerated(EnumType.STRING)
     private RentOrBuyPreference rentOrBuy;
+
+    @Column(length = 1000)
+    private String description;
+
+    private String imageUrl;
+
+    // null = seeded/platform listing; non-null = submitted by a landlord/agent
+    private Long landlordId;
 }

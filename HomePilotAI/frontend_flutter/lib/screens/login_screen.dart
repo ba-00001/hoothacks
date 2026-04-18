@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../services/app_session.dart';
 import '../services/auth_service.dart';
 import '../services/demo_fallbacks.dart';
+import 'landlord_signup_screen.dart';
 import 'signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -185,6 +186,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         child: const Text('Create a new account'),
+                      ),
+                      TextButton.icon(
+                        onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const LandlordSignupScreen(),
+                          ),
+                        ),
+                        icon: const Icon(Icons.home_work_rounded, size: 16),
+                        label: const Text('List your property'),
                       ),
 
                       const SizedBox(height: 16),

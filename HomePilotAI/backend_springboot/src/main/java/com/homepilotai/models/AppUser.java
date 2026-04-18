@@ -39,4 +39,14 @@ public class AppUser {
 
     @Enumerated(EnumType.STRING)
     private RentOrBuyPreference rentOrBuy;
+
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private UserRole role = UserRole.RENTER;
+
+    private String businessName;
+    private String phoneNumber;
+
+    @Enumerated(EnumType.STRING)
+    private SubscriptionTier subscriptionTier;
 }
