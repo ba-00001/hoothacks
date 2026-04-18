@@ -12,10 +12,7 @@ class AuthService {
   }) async {
     final json = await _apiClient.postObject(
       '/auth/login',
-      body: {
-        'email': email,
-        'password': password,
-      },
+      body: {'email': email, 'password': password},
     );
     return AuthResponse.fromJson(json);
   }
@@ -26,10 +23,7 @@ class AuthService {
   }) async {
     final json = await _apiClient.postObject(
       '/auth/signup',
-      body: {
-        'email': email,
-        'password': password,
-      },
+      body: {'email': email, 'password': password},
     );
     return AuthResponse.fromJson(json);
   }

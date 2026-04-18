@@ -45,13 +45,13 @@ class UserProfile {
       UserProfile.fromJson(jsonDecode(source) as Map<String, dynamic>);
 
   String toStorage() => jsonEncode({
-        'id': id,
-        'email': email,
-        'incomeRange': incomeRange,
-        'employmentStatus': employmentStatus,
-        'householdSize': householdSize,
-        'creditEstimate': creditEstimate,
-        'preferredLocation': preferredLocation,
-        'rentOrBuy': rentOrBuy,
-      });
+    'id': id,
+    'email': email,
+    'incomeRange': incomeRange,
+    'employmentStatus': employmentStatus,
+    'householdSize': householdSize,
+    'creditEstimate': creditEstimate,
+    'preferredLocation': preferredLocation,
+    'rentOrBuy': rentOrBuy,
+  });
 }

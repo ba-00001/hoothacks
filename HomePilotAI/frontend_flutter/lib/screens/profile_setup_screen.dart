@@ -31,7 +31,8 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     _householdController.text =
         user?.householdSize?.toString() ?? _householdController.text;
     _creditController.text = user?.creditEstimate?.toString() ?? '';
-    _locationController.text = user?.preferredLocation ?? _locationController.text;
+    _locationController.text =
+        user?.preferredLocation ?? _locationController.text;
     _rentOrBuy = user?.rentOrBuy ?? _rentOrBuy;
   }
 
@@ -53,21 +54,23 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     setState(() => _isSaving = true);
     try {
       final updatedUser = await context.read<ProfileService>().updateProfile(
-            incomeRange: _incomeController.text.trim(),
-            employmentStatus: _employmentController.text.trim(),
-            householdSize: int.parse(_householdController.text.trim()),
-            creditEstimate: _creditController.text.trim().isEmpty
-                ? null
-                : int.parse(_creditController.text.trim()),
-            preferredLocation: _locationController.text.trim(),
-            rentOrBuy: _rentOrBuy,
-          );
+        incomeRange: _incomeController.text.trim(),
+        employmentStatus: _employmentController.text.trim(),
+        householdSize: int.parse(_householdController.text.trim()),
+        creditEstimate: _creditController.text.trim().isEmpty
+            ? null
+            : int.parse(_creditController.text.trim()),
+        preferredLocation: _locationController.text.trim(),
+        rentOrBuy: _rentOrBuy,
+      );
       if (!mounted) return;
       await context.read<AppSession>().updateUser(updatedUser);
     } catch (error) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(error.toString().replaceFirst('Exception: ', ''))),
+        SnackBar(
+          content: Text(error.toString().replaceFirst('Exception: ', '')),
+        ),
       );
     } finally {
       if (mounted) {
@@ -107,8 +110,9 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                           labelText: 'Income range',
                           hintText: '45000-60000',
                         ),
-                        validator: (value) =>
-                            value != null && value.isNotEmpty ? null : 'Enter income range',
+                        validator: (value) => value != null && value.isNotEmpty
+                            ? null
+                            : 'Enter income range',
                       ),
                       const SizedBox(height: 16),
                       TextFormField(
@@ -116,14 +120,17 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                         decoration: const InputDecoration(
                           labelText: 'Employment status',
                         ),
-                        validator: (value) =>
-                            value != null && value.isNotEmpty ? null : 'Enter employment status',
+                        validator: (value) => value != null && value.isNotEmpty
+                            ? null
+                            : 'Enter employment status',
                       ),
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: _householdController,
                         keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(labelText: 'Household size'),
+                        decoration: const InputDecoration(
+                          labelText: 'Household size',
+                        ),
                         validator: (value) {
                           final parsed = int.tryParse(value ?? '');
                           return parsed != null && parsed > 0
@@ -146,12 +153,13 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                           labelText: 'Preferred location',
                           hintText: 'Atlanta, GA',
                         ),
-                        validator: (value) =>
-                            value != null && value.isNotEmpty ? null : 'Enter a location',
+                        validator: (value) => value != null && value.isNotEmpty
+                            ? null
+                            : 'Enter a location',
                       ),
                       const SizedBox(height: 16),
                       DropdownButtonFormField<String>(
-                        value: _rentOrBuy,
+                        initialValue: _rentOrBuy,
                         decoration: const InputDecoration(
                           labelText: 'Rent or buy preference',
                         ),
@@ -159,14 +167,17 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                           DropdownMenuItem(value: 'RENT', child: Text('Rent')),
                           DropdownMenuItem(value: 'BUY', child: Text('Buy')),
                         ],
-                        onChanged: (value) => setState(() => _rentOrBuy = value ?? 'RENT'),
+                        onChanged: (value) =>
+                            setState(() => _rentOrBuy = value ?? 'RENT'),
                       ),
                       const SizedBox(height: 24),
                       SizedBox(
                         width: double.infinity,
                         child: FilledButton(
                           onPressed: _isSaving ? null : _saveProfile,
-                          child: Text(_isSaving ? 'Saving...' : 'Complete profile'),
+                          child: Text(
+                            _isSaving ? 'Saving...' : 'Complete profile',
+                          ),
                         ),
                       ),
                     ],

@@ -19,7 +19,10 @@ class ApiClient {
     return _decodeObject(response);
   }
 
-  Future<List<dynamic>> getList(String path, {Map<String, String>? query}) async {
+  Future<List<dynamic>> getList(
+    String path, {
+    Map<String, String>? query,
+  }) async {
     final response = await http.get(_uri(path, query), headers: _headers());
     return _decodeList(response);
   }
@@ -33,7 +36,10 @@ class ApiClient {
     return _decodeObject(response);
   }
 
-  Future<Map<String, dynamic>> putObject(String path, {required Object body}) async {
+  Future<Map<String, dynamic>> putObject(
+    String path, {
+    required Object body,
+  }) async {
     final response = await http.put(
       _uri(path),
       headers: _headers(),
@@ -63,13 +69,17 @@ class ApiClient {
   }
 
   dynamic _decode(http.Response response) {
-    final dynamic decoded =
-        response.body.isEmpty ? <String, dynamic>{} : jsonDecode(response.body);
+    final dynamic decoded = response.body.isEmpty
+        ? <String, dynamic>{}
+        : jsonDecode(response.body);
 
     if (response.statusCode >= 400) {
-      final message =
-          decoded is Map<String, dynamic> ? decoded['message'] as String? : null;
-      throw Exception(message ?? 'Request failed with status ${response.statusCode}');
+      final message = decoded is Map<String, dynamic>
+          ? decoded['message'] as String?
+          : null;
+      throw Exception(
+        message ?? 'Request failed with status ${response.statusCode}',
+      );
     }
 
     return decoded;

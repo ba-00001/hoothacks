@@ -26,19 +26,19 @@ class HomePilotBootstrap extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AppSession()),
         ProxyProvider<AppSession, ApiClient>(
-          update: (_, session, __) => ApiClient(session),
+          update: (_, session, _) => ApiClient(session),
         ),
         ProxyProvider<ApiClient, AuthService>(
-          update: (_, apiClient, __) => AuthService(apiClient),
+          update: (_, apiClient, _) => AuthService(apiClient),
         ),
         ProxyProvider<ApiClient, ProfileService>(
-          update: (_, apiClient, __) => ProfileService(apiClient),
+          update: (_, apiClient, _) => ProfileService(apiClient),
         ),
         ProxyProvider<ApiClient, AiService>(
-          update: (_, apiClient, __) => AiService(apiClient),
+          update: (_, apiClient, _) => AiService(apiClient),
         ),
         ProxyProvider<ApiClient, ListingService>(
-          update: (_, apiClient, __) => ListingService(apiClient),
+          update: (_, apiClient, _) => ListingService(apiClient),
         ),
       ],
       child: const HomePilotApp(),
@@ -107,9 +107,7 @@ class _AuthGateState extends State<AuthGate> {
   @override
   void initState() {
     super.initState();
-    _sessionFuture = Future.microtask(
-      () => context.read<AppSession>().restoreSession(),
-    );
+    _sessionFuture = context.read<AppSession>().restoreSession();
   }
 
   @override

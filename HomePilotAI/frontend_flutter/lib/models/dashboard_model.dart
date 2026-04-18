@@ -24,11 +24,18 @@ class DashboardModel {
       mortgageEstimate: MortgageEstimateModel.fromJson(
         json['mortgageEstimate'] as Map<String, dynamic>,
       ),
-      grants: ((json['grants'] as Map<String, dynamic>)['matches'] as List<dynamic>)
-          .map((item) => GrantMatchModel.fromJson(item as Map<String, dynamic>))
-          .toList(),
+      grants:
+          ((json['grants'] as Map<String, dynamic>)['matches'] as List<dynamic>)
+              .map(
+                (item) =>
+                    GrantMatchModel.fromJson(item as Map<String, dynamic>),
+              )
+              .toList(),
       topListings: (json['topListings'] as List<dynamic>)
-          .map((item) => RecommendationModel.fromJson(item as Map<String, dynamic>))
+          .map(
+            (item) =>
+                RecommendationModel.fromJson(item as Map<String, dynamic>),
+          )
           .toList(),
     );
   }

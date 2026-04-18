@@ -39,8 +39,8 @@ class _MortgageEstimateScreenState extends State<MortgageEstimateScreen> {
     try {
       final parsed = double.tryParse(_downPaymentController.text.trim());
       final estimate = await context.read<AiService>().getMortgageEstimate(
-            downPayment: parsed,
-          );
+        downPayment: parsed,
+      );
       if (!mounted) return;
       setState(() => _estimate = estimate);
     } catch (error) {

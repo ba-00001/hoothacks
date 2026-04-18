@@ -13,9 +13,9 @@ class RecommendationsScreen extends StatelessWidget {
   Future<void> _save(BuildContext context, int listingId) async {
     await context.read<ListingService>().saveFavorite(listingId);
     if (!context.mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Saved to favorites')),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Saved to favorites')));
   }
 
   @override
@@ -27,7 +27,9 @@ class RecommendationsScreen extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return EmptyState(snapshot.error.toString().replaceFirst('Exception: ', ''));
+          return EmptyState(
+            snapshot.error.toString().replaceFirst('Exception: ', ''),
+          );
         }
 
         final recommendations = snapshot.data!;
@@ -48,7 +50,7 @@ class RecommendationsScreen extends StatelessWidget {
                   ? '\$${item.price.toStringAsFixed(0)}/mo'
                   : '\$${item.price.toStringAsFixed(0)}',
               details: '${item.bedrooms} bd • ${item.bathrooms} ba',
-              scoreLabel: '${item.score.toStringAsFixed(1)}',
+              scoreLabel: item.score.toStringAsFixed(1),
               summary: item.fitSummary,
               onSave: () => _save(context, item.listingId),
             );

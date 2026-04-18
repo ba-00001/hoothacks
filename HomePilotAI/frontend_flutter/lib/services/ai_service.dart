@@ -26,7 +26,9 @@ class AiService {
     final json = await _apiClient.postObject('/ai/recommendations');
     final recommendations = json['recommendations'] as List<dynamic>;
     return recommendations
-        .map((item) => RecommendationModel.fromJson(item as Map<String, dynamic>))
+        .map(
+          (item) => RecommendationModel.fromJson(item as Map<String, dynamic>),
+        )
         .toList();
   }
 

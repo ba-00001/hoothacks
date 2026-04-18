@@ -34,18 +34,18 @@ class _ListingsScreenState extends State<ListingsScreen> {
 
   Future<List<ListingModel>> _loadListings() {
     return context.read<ListingService>().getListings(
-          location: _locationController.text.trim(),
-          maxPrice: _priceController.text.trim(),
-          rentOrBuy: _rentOrBuy,
-        );
+      location: _locationController.text.trim(),
+      maxPrice: _priceController.text.trim(),
+      rentOrBuy: _rentOrBuy,
+    );
   }
 
   Future<void> _saveFavorite(int listingId) async {
     await context.read<ListingService>().saveFavorite(listingId);
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Saved to favorites')),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Saved to favorites')));
   }
 
   @override
@@ -58,7 +58,9 @@ class _ListingsScreenState extends State<ListingsScreen> {
             children: [
               TextField(
                 controller: _locationController,
-                decoration: const InputDecoration(labelText: 'Filter by location'),
+                decoration: const InputDecoration(
+                  labelText: 'Filter by location',
+                ),
               ),
               const SizedBox(height: 12),
               TextField(
@@ -68,7 +70,7 @@ class _ListingsScreenState extends State<ListingsScreen> {
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
-                value: _rentOrBuy,
+                initialValue: _rentOrBuy,
                 decoration: const InputDecoration(labelText: 'Rent or buy'),
                 items: const [
                   DropdownMenuItem(value: 'RENT', child: Text('Rent')),

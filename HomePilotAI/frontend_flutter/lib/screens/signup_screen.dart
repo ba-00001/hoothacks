@@ -34,16 +34,19 @@ class _SignupScreenState extends State<SignupScreen> {
     setState(() => _isSubmitting = true);
     try {
       final authResponse = await context.read<AuthService>().signup(
-            email: _emailController.text.trim(),
-            password: _passwordController.text,
-          );
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+      );
       if (!mounted) return;
       await context.read<AppSession>().setSession(authResponse);
+      if (!mounted) return;
       Navigator.of(context).pop();
     } catch (error) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(error.toString().replaceFirst('Exception: ', ''))),
+        SnackBar(
+          content: Text(error.toString().replaceFirst('Exception: ', '')),
+        ),
       );
     } finally {
       if (mounted) {
@@ -78,30 +81,40 @@ class _SignupScreenState extends State<SignupScreen> {
                         controller: _emailController,
                         decoration: const InputDecoration(labelText: 'Email'),
                         validator: (value) =>
-                            value != null && value.contains('@') ? null : 'Enter a valid email',
+                            value != null && value.contains('@')
+                            ? null
+                            : 'Enter a valid email',
                       ),
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: _passwordController,
                         obscureText: true,
-                        decoration: const InputDecoration(labelText: 'Password'),
-                        validator: (value) =>
-                            value != null && value.length >= 6 ? null : 'Minimum 6 characters',
+                        decoration: const InputDecoration(
+                          labelText: 'Password',
+                        ),
+                        validator: (value) => value != null && value.length >= 6
+                            ? null
+                            : 'Minimum 6 characters',
                       ),
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: _confirmController,
                         obscureText: true,
-                        decoration: const InputDecoration(labelText: 'Confirm password'),
-                        validator: (value) =>
-                            value == _passwordController.text ? null : 'Passwords do not match',
+                        decoration: const InputDecoration(
+                          labelText: 'Confirm password',
+                        ),
+                        validator: (value) => value == _passwordController.text
+                            ? null
+                            : 'Passwords do not match',
                       ),
                       const SizedBox(height: 20),
                       SizedBox(
                         width: double.infinity,
                         child: FilledButton(
                           onPressed: _isSubmitting ? null : _submit,
-                          child: Text(_isSubmitting ? 'Creating...' : 'Sign up'),
+                          child: Text(
+                            _isSubmitting ? 'Creating...' : 'Sign up',
+                          ),
                         ),
                       ),
                     ],

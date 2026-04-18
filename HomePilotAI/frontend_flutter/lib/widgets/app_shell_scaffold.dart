@@ -29,10 +29,7 @@ class AppShellScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-        backgroundColor: Colors.transparent,
-      ),
+      appBar: AppBar(title: Text(title), backgroundColor: Colors.transparent),
       drawer: Drawer(
         child: SafeArea(
           child: Column(

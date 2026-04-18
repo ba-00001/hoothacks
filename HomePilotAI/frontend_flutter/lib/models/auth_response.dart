@@ -1,10 +1,7 @@
 import 'user_profile.dart';
 
 class AuthResponse {
-  const AuthResponse({
-    required this.token,
-    required this.user,
-  });
+  const AuthResponse({required this.token, required this.user});
 
   final String token;
   final UserProfile user;

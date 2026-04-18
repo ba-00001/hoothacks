@@ -17,7 +17,9 @@ class GrantEligibilityScreen extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return EmptyState(snapshot.error.toString().replaceFirst('Exception: ', ''));
+          return EmptyState(
+            snapshot.error.toString().replaceFirst('Exception: ', ''),
+          );
         }
 
         final grants = snapshot.data!;
@@ -37,7 +39,10 @@ class GrantEligibilityScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(grant.programName, style: Theme.of(context).textTheme.titleLarge),
+                    Text(
+                      grant.programName,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                     const SizedBox(height: 10),
                     Text(grant.rationale),
                     const SizedBox(height: 12),
@@ -45,10 +50,14 @@ class GrantEligibilityScreen extends StatelessWidget {
                       spacing: 10,
                       children: [
                         Chip(
-                          label: Text('\$${grant.coverageAmount.toStringAsFixed(0)} coverage'),
+                          label: Text(
+                            '\$${grant.coverageAmount.toStringAsFixed(0)} coverage',
+                          ),
                         ),
                         Chip(
-                          label: Text('${grant.eligibilityScore.toStringAsFixed(0)} match'),
+                          label: Text(
+                            '${grant.eligibilityScore.toStringAsFixed(0)} match',
+                          ),
                         ),
                       ],
                     ),

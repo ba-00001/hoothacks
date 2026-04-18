@@ -22,14 +22,14 @@ class AffordabilityModel {
       message: json['message'] as String,
       recommendedRentMin: (json['recommendedRentMin'] as num).toDouble(),
       recommendedRentMax: (json['recommendedRentMax'] as num).toDouble(),
-      recommendedPurchaseMin:
-          (json['recommendedPurchaseMin'] as num).toDouble(),
-      recommendedPurchaseMax:
-          (json['recommendedPurchaseMax'] as num).toDouble(),
-      estimatedDebtToIncomeRatio:
-          (json['estimatedDebtToIncomeRatio'] as num).toDouble(),
-      recommendedHousingBudget:
-          (json['recommendedHousingBudget'] as num).toDouble(),
+      recommendedPurchaseMin: (json['recommendedPurchaseMin'] as num)
+          .toDouble(),
+      recommendedPurchaseMax: (json['recommendedPurchaseMax'] as num)
+          .toDouble(),
+      estimatedDebtToIncomeRatio: (json['estimatedDebtToIncomeRatio'] as num)
+          .toDouble(),
+      recommendedHousingBudget: (json['recommendedHousingBudget'] as num)
+          .toDouble(),
     );
   }
 }

@@ -19,7 +19,9 @@ class DashboardScreen extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return EmptyState(snapshot.error.toString().replaceFirst('Exception: ', ''));
+          return EmptyState(
+            snapshot.error.toString().replaceFirst('Exception: ', ''),
+          );
         }
 
         final dashboard = snapshot.data!;
@@ -66,12 +68,19 @@ class DashboardScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 24),
-              Text('Eligible Grants', style: Theme.of(context).textTheme.headlineSmall),
+              Text(
+                'Eligible Grants',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
               const SizedBox(height: 12),
               if (dashboard.grants.isEmpty)
-                const EmptyState('No grant matches yet. Update your profile to improve matching.')
+                const EmptyState(
+                  'No grant matches yet. Update your profile to improve matching.',
+                )
               else
-                ...dashboard.grants.take(3).map(
+                ...dashboard.grants
+                    .take(3)
+                    .map(
                       (grant) => Card(
                         child: ListTile(
                           title: Text(grant.programName),
@@ -84,7 +93,10 @@ class DashboardScreen extends StatelessWidget {
                       ),
                     ),
               const SizedBox(height: 24),
-              Text('Top Listings', style: Theme.of(context).textTheme.headlineSmall),
+              Text(
+                'Top Listings',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
               const SizedBox(height: 12),
               ...dashboard.topListings.map(
                 (listing) => ListingCard(

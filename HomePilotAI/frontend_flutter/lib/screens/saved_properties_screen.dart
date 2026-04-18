@@ -18,7 +18,9 @@ class SavedPropertiesScreen extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return EmptyState(snapshot.error.toString().replaceFirst('Exception: ', ''));
+          return EmptyState(
+            snapshot.error.toString().replaceFirst('Exception: ', ''),
+          );
         }
 
         final listings = snapshot.data!;

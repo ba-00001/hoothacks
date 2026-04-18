@@ -17,8 +17,9 @@ class ListingModel {
   final int bathrooms;
   final String rentOrBuy;
 
-  String get formattedPrice =>
-      rentOrBuy == 'RENT' ? '\$${price.toStringAsFixed(0)}/mo' : '\$${price.toStringAsFixed(0)}';
+  String get formattedPrice => rentOrBuy == 'RENT'
+      ? '\$${price.toStringAsFixed(0)}/mo'
+      : '\$${price.toStringAsFixed(0)}';
 
   factory ListingModel.fromJson(Map<String, dynamic> json) {
     return ListingModel(

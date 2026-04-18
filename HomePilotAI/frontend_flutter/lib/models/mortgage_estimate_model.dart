@@ -20,10 +20,10 @@ class MortgageEstimateModel {
       estimatedBudget: (json['estimatedBudget'] as num).toDouble(),
       monthlyPayment: (json['monthlyPayment'] as num).toDouble(),
       readinessScore: json['readinessScore'] as int,
-      recommendedPurchaseMin:
-          (json['recommendedPurchaseMin'] as num).toDouble(),
-      recommendedPurchaseMax:
-          (json['recommendedPurchaseMax'] as num).toDouble(),
+      recommendedPurchaseMin: (json['recommendedPurchaseMin'] as num)
+          .toDouble(),
+      recommendedPurchaseMax: (json['recommendedPurchaseMax'] as num)
+          .toDouble(),
       summary: json['summary'] as String,
     );
   }

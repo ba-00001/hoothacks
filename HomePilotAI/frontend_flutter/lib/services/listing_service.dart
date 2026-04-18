@@ -32,9 +32,6 @@ class ListingService {
   }
 
   Future<void> saveFavorite(int listingId) async {
-    await _apiClient.postObject(
-      '/favorites',
-      body: {'listingId': listingId},
-    );
+    await _apiClient.postObject('/favorites', body: {'listingId': listingId});
   }
 }
