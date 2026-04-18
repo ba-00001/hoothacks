@@ -1,0 +1,10 @@
+package com.homepilot.app.repositories;
+
+import com.homepilot.app.models.Recommendation;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+public interface RecommendationRepository extends JpaRepository<Recommendation, Long> {
+    List<Recommendation> findByUserIdOrderByScoreDesc(Long userId);
+    void deleteByUserId(Long userId);
+}
