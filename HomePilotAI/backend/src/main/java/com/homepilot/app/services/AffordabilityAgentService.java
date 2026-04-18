@@ -10,15 +10,27 @@ import java.util.*;
 public class AffordabilityAgentService {
 
     @Autowired private UserRepository userRepository;
+    @Autowired private AgentClientService agentClient;
 
     public Map<String, Object> calculateAffordability(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // --- PLACEHOLDER: Replace with Google ADK agent call ---
+        // Try real agent first
+        if (agentClient.isAvailable()) {
+            String agentResponse = agentClient.askWithProfile(user, "affordability");
+            if (agentResponse != null) {
+                Map<String, Object> result = new LinkedHashMap<>();
+                result.put("userId", userId);
+                result.put("summary", agentResponse);
+                result.put("source", "Google ADK Agent");
+                return result;
+            }
+        }
+
+        // Fallback to local calculation
         int estimatedIncome = estimateIncomeFromRange(user.getIncomeRange());
         int householdSize = user.getHouseholdSize() != null ? user.getHouseholdSize() : 1;
-
         double monthlyIncome = estimatedIncome / 12.0;
         double maxRent = monthlyIncome * 0.30;
         double minRent = monthlyIncome * 0.20;
@@ -36,7 +48,7 @@ public class AffordabilityAgentService {
         result.put("summary", String.format(
                 "Based on your income and household size, your recommended monthly rent range is $%,d–$%,d. Max home purchase: ~$%,dk.",
                 Math.round(minRent), Math.round(maxRent), Math.round(maxPurchase / 1000)));
-        result.put("source", "placeholder — awaiting Google ADK agent integration");
+        result.put("source", "local-calculator");
         return result;
     }
 

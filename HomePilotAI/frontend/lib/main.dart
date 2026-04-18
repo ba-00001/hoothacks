@@ -20,11 +20,27 @@ class HomePilotApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF1B5E20),
+          seedColor: const Color(0xFF2E7D32),
           brightness: Brightness.light,
+          primary: const Color(0xFF2E7D32),
+          onPrimary: Colors.white,
+          surface: const Color(0xFFF8FAF8),
         ),
         useMaterial3: true,
-        appBarTheme: const AppBarTheme(centerTitle: true),
+        scaffoldBackgroundColor: const Color(0xFFF5F7F5),
+        appBarTheme: const AppBarTheme(
+          centerTitle: false,
+          elevation: 0,
+        ),
+        cardTheme: CardThemeData(
+          elevation: 0,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        ),
+        filledButtonTheme: FilledButtonThemeData(
+          style: FilledButton.styleFrom(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+        ),
       ),
       home: const AuthGate(),
     );
@@ -42,10 +58,7 @@ class _AuthGateState extends State<AuthGate> {
   bool _loggedIn = false;
 
   @override
-  void initState() {
-    super.initState();
-    _checkAuth();
-  }
+  void initState() { super.initState(); _checkAuth(); }
 
   Future<void> _checkAuth() async {
     final prefs = await SharedPreferences.getInstance();

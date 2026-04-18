@@ -14,13 +14,13 @@ public class RecommendationAgentService {
 
     @Autowired private UserRepository userRepository;
     @Autowired private ListingRepository listingRepository;
+    @Autowired private AgentClientService agentClient;
 
     public Map<String, Object> recommend(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         String preference = user.getRentOrBuy() != null ? user.getRentOrBuy() : "rent";
-
         List<Listing> listings = listingRepository.findByType(preference);
 
         List<Map<String, Object>> ranked = listings.stream()
@@ -31,6 +31,8 @@ public class RecommendationAgentService {
                     entry.put("title", l.getTitle());
                     entry.put("price", l.getPrice());
                     entry.put("location", l.getLocation());
+                    entry.put("bedrooms", l.getBedrooms());
+                    entry.put("bathrooms", l.getBathrooms());
                     entry.put("score", Math.round(Math.random() * 30 + 70) / 100.0);
                     return entry;
                 })
@@ -41,7 +43,17 @@ public class RecommendationAgentService {
         result.put("userId", userId);
         result.put("preference", preference);
         result.put("recommendations", ranked);
-        result.put("source", "placeholder — awaiting Google ADK agent integration");
+
+        if (agentClient.isAvailable()) {
+            String agentResponse = agentClient.askWithProfile(user, "recommendations");
+            if (agentResponse != null) {
+                result.put("agentInsight", agentResponse);
+                result.put("source", "Google ADK Agent + local listings");
+                return result;
+            }
+        }
+
+        result.put("source", "local-calculator");
         return result;
     }
 }

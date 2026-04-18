@@ -10,40 +10,39 @@ import java.util.*;
 public class GrantMatchingAgentService {
 
     @Autowired private UserRepository userRepository;
+    @Autowired private AgentClientService agentClient;
 
     public Map<String, Object> matchGrants(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // --- PLACEHOLDER: Replace with Google ADK agent call ---
-        List<Map<String, Object>> grants = new ArrayList<>();
-
-        Map<String, Object> g1 = new LinkedHashMap<>();
-        g1.put("programName", "First-Time Home Buyer Assistance");
-        g1.put("coverageAmount", 15000);
-        g1.put("eligibility", "First-time buyer, income < $75k");
-        g1.put("matchScore", 0.92);
-        grants.add(g1);
-
-        Map<String, Object> g2 = new LinkedHashMap<>();
-        g2.put("programName", "State Housing Down Payment Grant");
-        g2.put("coverageAmount", 10000);
-        g2.put("eligibility", "State resident, household size >= 2");
-        g2.put("matchScore", 0.85);
-        grants.add(g2);
-
-        Map<String, Object> g3 = new LinkedHashMap<>();
-        g3.put("programName", "Student Housing Support Program");
-        g3.put("coverageAmount", 5000);
-        g3.put("eligibility", "Currently enrolled student");
-        g3.put("matchScore", 0.70);
-        grants.add(g3);
+        if (agentClient.isAvailable()) {
+            String agentResponse = agentClient.askWithProfile(user, "grants");
+            if (agentResponse != null) {
+                Map<String, Object> result = new LinkedHashMap<>();
+                result.put("userId", userId);
+                result.put("summary", agentResponse);
+                result.put("source", "Google ADK Agent");
+                // Still return structured data for the UI cards
+                result.put("matchedGrants", buildDefaultGrants());
+                result.put("totalPotentialAid", 30000);
+                return result;
+            }
+        }
 
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("userId", userId);
-        result.put("matchedGrants", grants);
+        result.put("matchedGrants", buildDefaultGrants());
         result.put("totalPotentialAid", 30000);
-        result.put("source", "placeholder — awaiting Google ADK agent integration");
+        result.put("source", "local-calculator");
         return result;
+    }
+
+    private List<Map<String, Object>> buildDefaultGrants() {
+        List<Map<String, Object>> grants = new ArrayList<>();
+        grants.add(Map.of("programName", "First-Time Home Buyer Assistance", "coverageAmount", 15000, "eligibility", "First-time buyer, income < $75k", "matchScore", 0.92));
+        grants.add(Map.of("programName", "State Housing Down Payment Grant", "coverageAmount", 10000, "eligibility", "State resident, household size >= 2", "matchScore", 0.85));
+        grants.add(Map.of("programName", "Student Housing Support Program", "coverageAmount", 5000, "eligibility", "Currently enrolled student", "matchScore", 0.70));
+        return grants;
     }
 }
