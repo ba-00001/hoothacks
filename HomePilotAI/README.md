@@ -6,27 +6,141 @@ HomePilot AI is a full-stack housing affordability assistant built with Flutter 
 
 ```text
 HomePilotAI/
+├── README.md
 ├── backend_springboot/
+│   ├── pom.xml
+│   ├── mvnw
+│   ├── mvnw.cmd
 │   ├── src/main/java/com/homepilotai/
+│   │   ├── agents/
+│   │   │   ├── AffordabilityAgentConnector.java
+│   │   │   ├── GrantMatchingAgentConnector.java
+│   │   │   ├── MortgageAgentConnector.java
+│   │   │   ├── RecommendationAgentConnector.java
+│   │   │   └── local/
+│   │   │       ├── LocalAffordabilityAgentConnector.java
+│   │   │       ├── LocalGrantMatchingAgentConnector.java
+│   │   │       ├── LocalMortgageAgentConnector.java
+│   │   │       └── LocalRecommendationAgentConnector.java
 │   │   ├── config/
+│   │   │   ├── DataSeederConfig.java
+│   │   │   ├── RestExceptionHandler.java
+│   │   │   └── SecurityConfig.java
 │   │   ├── controllers/
+│   │   │   ├── AiController.java
+│   │   │   ├── AuthController.java
+│   │   │   ├── DashboardController.java
+│   │   │   ├── ListingsController.java
+│   │   │   └── ProfileController.java
 │   │   ├── dto/
+│   │   │   ├── AffordabilityRequest.java
+│   │   │   ├── AffordabilityResponse.java
+│   │   │   ├── AuthResponse.java
+│   │   │   ├── DashboardResponse.java
+│   │   │   ├── FavoriteRequest.java
+│   │   │   ├── GrantMatchRequest.java
+│   │   │   ├── GrantMatchResponse.java
+│   │   │   ├── GrantMatchResult.java
+│   │   │   ├── ListingResponse.java
+│   │   │   ├── LoginRequest.java
+│   │   │   ├── MortgageEstimateRequest.java
+│   │   │   ├── MortgageEstimateResponse.java
+│   │   │   ├── ProfileSetupRequest.java
+│   │   │   ├── RecommendationRequest.java
+│   │   │   ├── RecommendationResponse.java
+│   │   │   ├── RecommendationResult.java
+│   │   │   ├── SignupRequest.java
+│   │   │   └── UserProfileResponse.java
 │   │   ├── models/
+│   │   │   ├── AppUser.java
+│   │   │   ├── GrantProgram.java
+│   │   │   ├── Listing.java
+│   │   │   ├── MortgageEstimate.java
+│   │   │   ├── Recommendation.java
+│   │   │   ├── RentOrBuyPreference.java
+│   │   │   └── SavedProperty.java
 │   │   ├── repositories/
+│   │   │   ├── AppUserRepository.java
+│   │   │   ├── GrantProgramRepository.java
+│   │   │   ├── ListingRepository.java
+│   │   │   ├── MortgageEstimateRepository.java
+│   │   │   ├── RecommendationRepository.java
+│   │   │   └── SavedPropertyRepository.java
 │   │   ├── security/
+│   │   │   ├── CustomUserDetailsService.java
+│   │   │   ├── JwtAuthenticationFilter.java
+│   │   │   └── JwtService.java
 │   │   ├── services/
+│   │   │   ├── AffordabilityAgentService.java
+│   │   │   ├── AuthService.java
+│   │   │   ├── DashboardService.java
+│   │   │   ├── FinancialProfileSupportService.java
+│   │   │   ├── GrantMatchingAgentService.java
+│   │   │   ├── ListingService.java
+│   │   │   ├── MortgageAgentService.java
+│   │   │   ├── RecommendationAgentService.java
+│   │   │   ├── SavedPropertyService.java
+│   │   │   └── UserProfileService.java
 │   │   └── HomePilotApplication.java
-│   └── src/main/resources/application.properties
+│   ├── src/main/resources/
+│   │   └── application.properties
+│   └── src/test/
+│       ├── java/com/homepilotai/
+│       │   └── HomePilotApplicationTests.java
+│       └── resources/
+│           └── application.properties
 ├── frontend_flutter/
-│   └── lib/
-│       ├── models/
-│       ├── screens/
-│       ├── services/
-│       ├── widgets/
-│       └── main.dart
+│   ├── pubspec.yaml
+│   ├── pubspec.lock
+│   ├── lib/
+│   │   ├── main.dart
+│   │   ├── models/
+│   │   │   ├── affordability_model.dart
+│   │   │   ├── auth_response.dart
+│   │   │   ├── dashboard_model.dart
+│   │   │   ├── grant_match_model.dart
+│   │   │   ├── listing_model.dart
+│   │   │   ├── mortgage_estimate_model.dart
+│   │   │   ├── recommendation_model.dart
+│   │   │   └── user_profile.dart
+│   │   ├── screens/
+│   │   │   ├── dashboard_screen.dart
+│   │   │   ├── grant_eligibility_screen.dart
+│   │   │   ├── home_shell.dart
+│   │   │   ├── listings_screen.dart
+│   │   │   ├── login_screen.dart
+│   │   │   ├── mortgage_estimate_screen.dart
+│   │   │   ├── profile_setup_screen.dart
+│   │   │   ├── recommendations_screen.dart
+│   │   │   ├── saved_properties_screen.dart
+│   │   │   └── signup_screen.dart
+│   │   ├── services/
+│   │   │   ├── ai_service.dart
+│   │   │   ├── api_client.dart
+│   │   │   ├── app_session.dart
+│   │   │   ├── auth_service.dart
+│   │   │   ├── listing_service.dart
+│   │   │   └── profile_service.dart
+│   │   └── widgets/
+│   │       ├── app_shell_scaffold.dart
+│   │       ├── empty_state.dart
+│   │       ├── listing_card.dart
+│   │       └── metric_card.dart
+│   └── test/
+│       └── widget_test.dart
+├── agent_connectors/
+│   └── README.md
 ├── database_schema.sql
 └── docker-compose.yml
 ```
+
+### Structure Summary
+
+- `backend_springboot/` contains the Spring Boot API, security, data model, repositories, seeded mock data, and modular AI agent services.
+- `backend_springboot/src/main/java/com/homepilotai/agents/` is the connector seam for affordability, grants, recommendations, and mortgage agents.
+- `frontend_flutter/` contains the mobile client, including auth flow, dashboard, listings, saved properties, grants, and mortgage screens.
+- `agent_connectors/` is the root-level folder reserved for future external AI provider integrations and implementation notes.
+- `database_schema.sql` and `docker-compose.yml` make the MVP easy to demo locally.
 
 ## MVP Features
 
@@ -109,6 +223,11 @@ HomePilotAI/
 ```
 
 ## Agent Logic Notes
+
+Agent connector folder:
+- `agent_connectors/` is the root-level handoff folder for future external agent providers
+- `backend_springboot/src/main/java/com/homepilotai/agents/` contains the live Java connector interfaces
+- `backend_springboot/src/main/java/com/homepilotai/agents/local/` contains the current local implementations
 
 Affordability agent:
 - Converts the user income range into an estimated annual income midpoint
