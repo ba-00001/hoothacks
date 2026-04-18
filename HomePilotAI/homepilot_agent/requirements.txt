@@ -1,0 +1,3 @@
+fastapi
+google-adk
+pydantic
