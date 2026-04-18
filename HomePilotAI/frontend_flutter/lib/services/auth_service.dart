@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../models/auth_response.dart';
@@ -8,7 +9,18 @@ class AuthService {
   AuthService(this._apiClient);
 
   final ApiClient _apiClient;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  // On web the client ID must match the OAuth Web Client in Google Cloud Console.
+  // Replace the string below (or set it via --dart-define=GOOGLE_CLIENT_ID=...)
+  // On Android/iOS the client ID comes from google-services.json / GoogleService-Info.plist.
+  static const _webClientId = String.fromEnvironment(
+    'GOOGLE_CLIENT_ID',
+    defaultValue: 'YOUR_WEB_OAUTH_CLIENT_ID.apps.googleusercontent.com',
+  );
+
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    clientId: kIsWeb ? _webClientId : null,
+  );
 
   Future<AuthResponse> login({
     required String email,

@@ -1,12 +1,12 @@
 {
-    "name": "frontend_flutter",
-    "short_name": "frontend_flutter",
+    "name": "HomePilot AI",
+    "short_name": "HomePilot",
+    "description": "Housing affordability assistant for renters and first-time buyers.",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
-    "orientation": "portrait-primary",
+    "background_color": "#F4EFE7",
+    "theme_color": "#18605D",
+    "orientation": "any",
     "prefer_related_applications": false,
     "icons": [
         {

@@ -207,11 +207,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SelectableText(
                               'Email: demo@homepilot.ai\nPassword: HomePilot123!',
                             ),
-                            const SizedBox(height: 6),
-                            const Text(
-                              'If the backend is offline these credentials activate local fallback demo mode.',
-                              style: TextStyle(fontSize: 12),
-                            ),
                             const SizedBox(height: 8),
                             OutlinedButton(
                               onPressed: _fillDemoCredentials,

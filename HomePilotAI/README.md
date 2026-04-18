@@ -305,6 +305,134 @@ Mortgage agent:
   - Web: `http://localhost:8080`
 - If the backend is unreachable, the seeded demo account falls back to local sample data for dashboard insights, grant matches, recommendations, listings, saved properties, and mortgage estimates.
 
+## First-Time Setup
+
+### Prerequisites
+
+| Tool | Version | Install |
+|------|---------|---------|
+| Flutter SDK | 3.10+ | https://docs.flutter.dev/get-started/install |
+| Java JDK | 17+ | https://adoptium.net |
+| Docker Desktop | any | https://www.docker.com/products/docker-desktop (optional — app works without it using embedded H2) |
+| Android Studio | any | For Android emulator / SDK |
+| Xcode | 15+ | Mac App Store — required for iOS builds |
+| Chrome | any | Pre-installed on most systems |
+
+---
+
+### Step 1 — Install Flutter dependencies
+
+```bash
+cd HomePilotAI/frontend_flutter
+flutter pub get
+```
+
+Run this once after cloning. Re-run any time `pubspec.yaml` changes.
+
+---
+
+### Step 2 — Start the backend
+
+```bash
+cd HomePilotAI/backend_springboot
+./mvnw spring-boot:run
+```
+
+The backend starts on `http://localhost:8080`. It uses an embedded H2 database by default — **no Docker or PostgreSQL needed for a demo**. The seeded demo account (`demo@homepilot.ai / HomePilot123!`) is created automatically on first boot.
+
+To use PostgreSQL instead:
+
+```bash
+docker compose -f HomePilotAI/docker-compose.yml up -d
+
+export DB_URL=jdbc:postgresql://localhost:5432/homepilotai
+export DB_USERNAME=postgres
+export DB_PASSWORD=postgres
+./mvnw spring-boot:run
+```
+
+---
+
+### Step 3 — Run on your target platform
+
+#### Chrome (Web)
+
+```bash
+cd HomePilotAI/frontend_flutter
+flutter run -d chrome
+```
+
+If the Flutter dev server picks a port that isn't in the backend CORS list, pass it explicitly:
+
+```bash
+flutter run -d chrome --web-port 3000
+```
+
+Or add the port to `CORS_ALLOWED_ORIGINS` before starting the backend:
+
+```bash
+export CORS_ALLOWED_ORIGINS="http://localhost:3000,http://localhost:YOUR_PORT"
+./mvnw spring-boot:run
+```
+
+#### Android (Emulator or physical device)
+
+1. Open Android Studio → **Device Manager** → start an emulator (API 26+), or plug in a physical device with USB debugging enabled.
+2. Run:
+
+```bash
+cd HomePilotAI/frontend_flutter
+flutter run -d android
+```
+
+The app automatically points API calls to `http://10.0.2.2:8080` (emulator) or `http://127.0.0.1:8080` (physical device via ADB reverse). For a physical device without ADB reverse, pass your machine's local IP:
+
+```bash
+flutter run -d android --dart-define=API_BASE_URL=http://192.168.X.X:8080
+```
+
+#### iOS (Simulator or physical device)
+
+> Mac + Xcode 15+ required.
+
+1. Open Xcode, go to **Settings → Platforms** and make sure an iOS simulator is installed.
+2. Run:
+
+```bash
+cd HomePilotAI/frontend_flutter
+flutter run -d ios
+```
+
+For a physical iPhone, open `HomePilotAI/frontend_flutter/ios/Runner.xcworkspace` in Xcode, set your Apple Developer team under **Signing & Capabilities**, then run from Xcode or use `flutter run`.
+
+---
+
+### Step 4 — Log in
+
+Use the demo account pre-seeded by the backend:
+
+| Field | Value |
+|-------|-------|
+| Email | `demo@homepilot.ai` |
+| Password | `HomePilot123!` |
+
+If the backend is not running, these credentials also activate **offline demo mode** inside the Flutter app — all screens load with local sample data.
+
+---
+
+### Troubleshooting
+
+| Symptom | Fix |
+|---------|-----|
+| `flutter: Could not reach backend` | Make sure Step 2 completed and the backend is running on port 8080 |
+| CORS error in Chrome DevTools | Add the Flutter dev port to `CORS_ALLOWED_ORIGINS` (see Step 3) |
+| Android: `cleartext traffic not permitted` | Already fixed in `AndroidManifest.xml` — rebuild with `flutter run` |
+| iOS: ATS error for localhost | Already fixed in `Info.plist` — clean build with `flutter clean && flutter run` |
+| `flutter pub get` fails | Make sure Flutter SDK is on PATH: `flutter --version` |
+| Backend port 8080 in use | `export SERVER_PORT=8081` then update API URL: `flutter run --dart-define=API_BASE_URL=http://localhost:8081` |
+
+---
+
 ## Run Locally
 
 ### 1. Start PostgreSQL

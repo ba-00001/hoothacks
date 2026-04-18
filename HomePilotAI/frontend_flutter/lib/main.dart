@@ -13,7 +13,8 @@ import 'services/auth_service.dart';
 import 'services/listing_service.dart';
 import 'services/profile_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const HomePilotBootstrap());
 }
 
