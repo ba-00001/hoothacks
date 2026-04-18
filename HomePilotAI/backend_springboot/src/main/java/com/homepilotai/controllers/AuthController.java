@@ -1,6 +1,7 @@
 package com.homepilotai.controllers;
 
 import com.homepilotai.dto.AuthResponse;
+import com.homepilotai.dto.GoogleAuthRequest;
 import com.homepilotai.dto.LoginRequest;
 import com.homepilotai.dto.SignupRequest;
 import com.homepilotai.services.AuthService;
@@ -29,5 +30,10 @@ public class AuthController {
     @PostMapping("/login")
     public AuthResponse login(@Valid @RequestBody LoginRequest request) {
         return authService.login(request);
+    }
+
+    @PostMapping("/google")
+    public AuthResponse googleLogin(@Valid @RequestBody GoogleAuthRequest request) {
+        return authService.googleLogin(request.idToken());
     }
 }
