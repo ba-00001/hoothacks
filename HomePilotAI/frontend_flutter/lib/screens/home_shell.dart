@@ -6,6 +6,7 @@ import 'dashboard_screen.dart';
 import 'grant_eligibility_screen.dart';
 import 'listings_screen.dart';
 import 'mortgage_estimate_screen.dart';
+import 'profile_screen.dart';
 import 'recommendations_screen.dart';
 import 'saved_properties_screen.dart';
 
@@ -27,6 +28,7 @@ class _HomeShellState extends State<HomeShell> {
     'Saved Properties',
     'Grant Eligibility',
     'Mortgage Estimate',
+    'My Profile',
   ];
 
   @override
@@ -39,6 +41,7 @@ class _HomeShellState extends State<HomeShell> {
       const SavedPropertiesScreen(),
       const GrantEligibilityScreen(),
       const MortgageEstimateScreen(),
+      const ProfileScreen(),
     ];
 
     return AppShellScaffold(

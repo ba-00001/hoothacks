@@ -25,6 +25,7 @@ class AppShellScaffold extends StatelessWidget {
     ('Saved', Icons.favorite_rounded),
     ('Grants', Icons.volunteer_activism_rounded),
     ('Mortgage', Icons.calculate_rounded),
+    ('Profile', Icons.person_rounded),
   ];
 
   @override

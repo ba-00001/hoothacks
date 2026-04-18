@@ -2,6 +2,34 @@
 
 HomePilot AI is a full-stack housing affordability assistant built with Flutter and Spring Boot. It helps users estimate affordable rent and purchase ranges, match with housing assistance programs, explore listings, save favorites, and gauge mortgage readiness.
 
+---
+
+## Screenshots
+
+| Login | Dashboard | Chatbot |
+|-------|-----------|---------|
+| ![Login](assets/screenshots/login.png) | ![Dashboard](assets/screenshots/dashboard.png) | ![Chatbot](assets/screenshots/chatbot.png) |
+
+| Recommendations | Grant Eligibility | Mortgage Estimate |
+|-----------------|-------------------|-------------------|
+| ![Recommendations](assets/screenshots/recommendations.png) | ![Grants](assets/screenshots/grants.png) | ![Mortgage](assets/screenshots/mortgage.png) |
+
+| Listings | Saved Properties | My Profile |
+|----------|-----------------|------------|
+| ![Listings](assets/screenshots/listings.png) | ![Saved](assets/screenshots/saved.png) | ![Profile](assets/screenshots/profile.png) |
+
+> Screenshots can be added to `assets/screenshots/`. The full slide deck is at [`presentation/HomePilotAI_Hackathon_Deck.pptx`](presentation/HomePilotAI_Hackathon_Deck.pptx).
+
+---
+
+## Branding
+
+| Logo | Thumbnail |
+|------|-----------|
+| ![Logo](assets/branding/homepilot_logo.png) | ![Thumbnail](assets/branding/homepilot_thumbnail.png) |
+
+---
+
 ## Demo Credentials
 
 - Email: `demo@homepilot.ai`
