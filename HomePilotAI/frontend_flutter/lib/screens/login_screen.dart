@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../services/app_session.dart';
 import '../services/auth_service.dart';
+import '../services/demo_fallbacks.dart';
 import 'signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,6 +18,11 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isSubmitting = false;
+
+  void _fillDemoCredentials() {
+    _emailController.text = DemoFallbacks.demoEmail;
+    _passwordController.text = DemoFallbacks.demoPassword;
+  }
 
   @override
   void dispose() {
@@ -83,6 +89,36 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: 8),
                         const Text(
                           'Find the most affordable housing options for your budget, location, and eligibility profile.',
+                        ),
+                        const SizedBox(height: 16),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF3EFE4),
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Judge demo login',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              const SizedBox(height: 8),
+                              const SelectableText(
+                                'Email: demo@homepilot.ai\nPassword: HomePilot123!',
+                              ),
+                              const SizedBox(height: 8),
+                              const Text(
+                                'If the backend is offline, these credentials switch the app into local fallback demo mode.',
+                              ),
+                              const SizedBox(height: 10),
+                              OutlinedButton(
+                                onPressed: _fillDemoCredentials,
+                                child: const Text('Use demo account'),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(height: 24),
                         TextFormField(

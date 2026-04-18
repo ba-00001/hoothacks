@@ -28,8 +28,37 @@ class AppShellScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final session = context.watch<AppSession>();
+
     return Scaffold(
-      appBar: AppBar(title: Text(title), backgroundColor: Colors.transparent),
+      appBar: AppBar(
+        title: Text(title),
+        backgroundColor: Colors.transparent,
+        bottom: session.isDemoMode
+            ? const PreferredSize(
+                preferredSize: Size.fromHeight(38),
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(16, 0, 16, 10),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Color(0xFFFFF2D8),
+                      borderRadius: BorderRadius.all(Radius.circular(999)),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 8,
+                      ),
+                      child: Text(
+                        'Offline demo mode: local fallback data is active.',
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            : null,
+      ),
       drawer: Drawer(
         child: SafeArea(
           child: Column(
@@ -57,7 +86,7 @@ class AppShellScaffold extends StatelessWidget {
                 leading: const Icon(Icons.logout_rounded),
                 title: const Text('Logout'),
                 onTap: () async {
-                  await context.read<AppSession>().logout();
+                  await session.logout();
                 },
               ),
             ],

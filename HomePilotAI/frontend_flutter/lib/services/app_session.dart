@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/auth_response.dart';
 import '../models/user_profile.dart';
+import 'demo_fallbacks.dart';
 
 class AppSession extends ChangeNotifier {
   static const _tokenKey = 'homepilot_token';
@@ -14,6 +15,7 @@ class AppSession extends ChangeNotifier {
   String? get token => _token;
   UserProfile? get user => _user;
   bool get isAuthenticated => _token != null && _token!.isNotEmpty;
+  bool get isDemoMode => _token == DemoFallbacks.offlineToken;
 
   Future<void> restoreSession() async {
     final prefs = await SharedPreferences.getInstance();

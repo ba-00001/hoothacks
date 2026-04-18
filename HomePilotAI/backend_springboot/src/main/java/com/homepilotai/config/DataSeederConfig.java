@@ -3,6 +3,8 @@ package com.homepilotai.config;
 import com.homepilotai.models.GrantProgram;
 import com.homepilotai.models.Listing;
 import com.homepilotai.models.RentOrBuyPreference;
+import com.homepilotai.models.AppUser;
+import com.homepilotai.repositories.AppUserRepository;
 import com.homepilotai.repositories.GrantProgramRepository;
 import com.homepilotai.repositories.ListingRepository;
 import java.math.BigDecimal;
@@ -10,13 +12,32 @@ import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class DataSeederConfig {
 
     @Bean
-    CommandLineRunner seedData(ListingRepository listingRepository, GrantProgramRepository grantProgramRepository) {
+    CommandLineRunner seedData(
+            ListingRepository listingRepository,
+            GrantProgramRepository grantProgramRepository,
+            AppUserRepository appUserRepository,
+            PasswordEncoder passwordEncoder
+    ) {
         return args -> {
+            if (!appUserRepository.existsByEmail("demo@homepilot.ai")) {
+                appUserRepository.save(AppUser.builder()
+                        .email("demo@homepilot.ai")
+                        .password(passwordEncoder.encode("HomePilot123!"))
+                        .incomeRange("52000-68000")
+                        .employmentStatus("Full-time")
+                        .householdSize(2)
+                        .creditEstimate(690)
+                        .preferredLocation("Atlanta, GA")
+                        .rentOrBuy(RentOrBuyPreference.BUY)
+                        .build());
+            }
+
             if (listingRepository.count() == 0) {
                 listingRepository.saveAll(List.of(
                         Listing.builder().title("West End Studio Loft").price(BigDecimal.valueOf(1180)).location("Atlanta, GA").bedrooms(1).bathrooms(1).rentOrBuy(RentOrBuyPreference.RENT).build(),

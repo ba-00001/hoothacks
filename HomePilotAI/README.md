@@ -2,6 +2,13 @@
 
 HomePilot AI is a full-stack housing affordability assistant built with Flutter and Spring Boot. It helps users estimate affordable rent and purchase ranges, match with housing assistance programs, explore listings, save favorites, and gauge mortgage readiness.
 
+## Demo Credentials
+
+- Email: `demo@homepilot.ai`
+- Password: `HomePilot123!`
+
+These credentials are seeded into the Spring Boot app automatically. If the backend is temporarily unavailable during a demo, the same login also activates an offline fallback mode inside the Flutter app so judges can still browse recommendations, grants, listings, and mortgage estimates.
+
 ## AI for Good Challenge Fit
 
 HomePilot AI addresses a real-world problem outside college life: housing affordability and access. Many renters and first-time buyers struggle to understand what they can actually afford, which grants they qualify for, and which homes are realistic options before wasting time on listings that are financially out of reach.
@@ -166,6 +173,7 @@ HomePilotAI/
 - Mock rental and purchase listings
 - Saved properties
 - Flutter mobile screens wired to backend APIs
+- Offline fallback mode for the seeded demo account if the API is unavailable
 
 ## Backend Endpoints
 
@@ -258,6 +266,16 @@ Recommendation agent:
 Mortgage agent:
 - Uses a conservative monthly housing ratio and credit-adjusted borrowing multiplier
 - Stores mortgage estimates for the current user
+
+## Demo Reliability and Fallbacks
+
+- Backend default mode uses an embedded H2 database, so the app can run locally even if PostgreSQL is not set up yet.
+- PostgreSQL is still supported for fuller deployment by overriding `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`, and optionally `DB_DRIVER`.
+- Flutter chooses a platform-aware API base URL automatically:
+  - Android emulator: `http://10.0.2.2:8080`
+  - iOS simulator, macOS, and local desktop: `http://127.0.0.1:8080`
+  - Web: `http://localhost:8080`
+- If the backend is unreachable, the seeded demo account falls back to local sample data for dashboard insights, grant matches, recommendations, listings, saved properties, and mortgage estimates.
 
 ## Run Locally
 
