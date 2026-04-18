@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F7F2EA"/>
+      <stop offset="100%" stop-color="#E1EFE9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1200" rx="88" fill="url(#bg)"/>
+  <rect x="48" y="48" width="1104" height="1104" rx="72" fill="none" stroke="#E7DCCB" stroke-width="4"/>
+  <path d="M600 176 L776 320 V506 L600 660 L424 506 V320 Z" fill="#18605D"/>
+  <path d="M600 232 L720 332 V470 L600 570 L480 470 V332 Z" fill="#1B2B2D"/>
+  <path d="M470 292 L600 184 L730 292 L730 312 L600 206 L470 312 Z" fill="#E59B32"/>
+  <rect x="490" y="196" width="40" height="88" fill="#E59B32"/>
+  <line x1="530" y1="330" x2="530" y2="462" stroke="#E59B32" stroke-width="10" stroke-linecap="round"/>
+  <line x1="566" y1="372" x2="566" y2="494" stroke="#E59B32" stroke-width="10" stroke-linecap="round"/>
+  <line x1="602" y1="278" x2="602" y2="426" stroke="#9DB9B4" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="530" cy="364" r="16" fill="#E59B32"/>
+  <circle cx="566" cy="408" r="16" fill="#E59B32"/>
+  <circle cx="602" cy="270" r="16" fill="#9DB9B4"/>
+  <path d="M706 350 C758 350 800 392 800 444 C800 484 744 556 706 604 C668 556 612 484 612 444 C612 392 654 350 706 350 Z" fill="#F7F2EA"/>
+  <circle cx="706" cy="438" r="44" fill="#18605D"/>
+  <text x="600" y="820" text-anchor="middle" font-size="136" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="#1B2B2D">HomePilot AI</text>
+  <text x="600" y="906" text-anchor="middle" font-size="52" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="#18605D">AI for Good</text>
+  <text x="600" y="970" text-anchor="middle" font-size="32" font-family="Arial, Helvetica, sans-serif" fill="#5A6E70">Housing affordability guidance powered by AI agents</text>
+</svg>
