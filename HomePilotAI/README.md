@@ -18,7 +18,7 @@ HomePilot AI is a full-stack housing affordability assistant built with Flutter 
 |----------|-----------------|------------|
 | ![Listings](assets/screenshots/listings.png) | ![Saved](assets/screenshots/saved.png) | ![Profile](assets/screenshots/profile.png) |
 
-> Screenshots can be added to `assets/screenshots/`. The full slide deck is at [`presentation/HomePilotAI_Hackathon_Deck.pptx`](presentation/HomePilotAI_Hackathon_Deck.pptx).
+> Screenshots can be added to `assets/screenshots/`. The full slide deck is at [`presentation/HomePilotAI_Hackathon_Deck.pptx`](https://github.com/ba-00001/hoothacks/blob/main/HomePilotAI/presentation/HomePilotAI_Hackathon_Deck.pptx).
 
 ---
 
