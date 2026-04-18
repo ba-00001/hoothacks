@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: homepilotai-postgres
+    environment:
+      POSTGRES_DB: homepilotai
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - homepilotai_postgres:/var/lib/postgresql/data
+
+volumes:
+  homepilotai_postgres:
