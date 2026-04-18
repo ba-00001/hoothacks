@@ -2,6 +2,19 @@
 
 HomePilot AI is a full-stack housing affordability assistant built with Flutter and Spring Boot. It helps users estimate affordable rent and purchase ranges, match with housing assistance programs, explore listings, save favorites, and gauge mortgage readiness.
 
+## AI for Good Challenge Fit
+
+HomePilot AI addresses a real-world problem outside college life: housing affordability and access. Many renters and first-time buyers struggle to understand what they can actually afford, which grants they qualify for, and which homes are realistic options before wasting time on listings that are financially out of reach.
+
+This project uses AI for good by turning messy financial and housing inputs into practical guidance:
+
+- it estimates safe rent and home-buying budgets
+- it matches users with grants and housing assistance programs
+- it ranks listings by affordability, fit, and likely support eligibility
+- it gives users a clearer path toward stable housing decisions
+
+In short, the AI is not being used for convenience alone. It is being used to reduce housing confusion, improve access to support programs, and help people make better, fairer, and more informed housing choices.
+
 ## Project Structure
 
 ```text
